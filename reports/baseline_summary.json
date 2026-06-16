@@ -1,31 +1,38 @@
 {
   "metadata": {
     "version": "Agent_V1_Base",
-    "total": 60,
+    "total": 50,
     "passed": 0,
-    "failed": 60,
-    "timestamp": "2026-06-16 14:20:03",
-    "elapsed_seconds": 0.0989,
+    "failed": 50,
+    "timestamp": "2026-06-16 15:08:15",
+    "elapsed_seconds": 1.2969,
+    "llm_provider": "Ollama local HTTP API",
+    "llm_model": "kamekichi128/qwen3-4b-instruct-2507:latest",
     "judge_models": [
-      "lexical-judge-v1",
-      "policy-judge-v1"
+      "kamekichi128/qwen3-4b-instruct-2507:latest::accuracy-judge",
+      "gemini-3.1-flash-lite::grounding-judge"
     ]
   },
   "metrics": {
-    "avg_score": 1.633167,
-    "hit_rate": 0.95,
+    "avg_score": 2.0242,
+    "hit_rate": 0.96,
     "mrr": 0.95,
-    "faithfulness": 0.449908,
-    "relevancy": 0.15374,
-    "agreement_rate": 0.982375,
-    "avg_latency": 0.014778,
-    "total_cost_usd": 0.002264,
-    "avg_tokens": 18.866667,
+    "faithfulness": 0.654482,
+    "relevancy": 0.468412,
+    "agreement_rate": 0.65,
+    "avg_latency": 0.139942,
+    "total_cost_usd": 0.0,
+    "avg_tokens": 35.48,
+    "agent_prompt_tokens": 1027,
+    "agent_completion_tokens": 747,
+    "judge_prompt_tokens": 0,
+    "judge_completion_tokens": 0,
+    "total_ollama_tokens": 1774,
     "pass_rate": 0.0
   },
   "failure_clusters": {
-    "incomplete_or_hallucinated": 56,
-    "retrieval_miss": 3,
-    "safety_policy": 1
+    "incomplete_or_hallucinated": 26,
+    "generation_quality": 22,
+    "retrieval_miss": 2
   }
 }

@@ -2,7 +2,7 @@ import re
 from typing import Dict, List
 
 
-TOKEN_RE = re.compile(r"[a-zA-Z0-9]+")
+TOKEN_RE = re.compile(r"[\wÀ-ỹ]+", re.UNICODE)
 
 
 def tokens(text: str) -> set:
