@@ -1,0 +1,31 @@
+{
+  "metadata": {
+    "version": "Agent_V1_Base",
+    "total": 60,
+    "passed": 0,
+    "failed": 60,
+    "timestamp": "2026-06-16 14:20:03",
+    "elapsed_seconds": 0.0989,
+    "judge_models": [
+      "lexical-judge-v1",
+      "policy-judge-v1"
+    ]
+  },
+  "metrics": {
+    "avg_score": 1.633167,
+    "hit_rate": 0.95,
+    "mrr": 0.95,
+    "faithfulness": 0.449908,
+    "relevancy": 0.15374,
+    "agreement_rate": 0.982375,
+    "avg_latency": 0.014778,
+    "total_cost_usd": 0.002264,
+    "avg_tokens": 18.866667,
+    "pass_rate": 0.0
+  },
+  "failure_clusters": {
+    "incomplete_or_hallucinated": 56,
+    "retrieval_miss": 3,
+    "safety_policy": 1
+  }
+}

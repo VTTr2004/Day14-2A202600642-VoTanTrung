@@ -1,7 +1,7 @@
 import asyncio
 import time
-from typing import List, Dict
-# Import other components...
+from typing import Dict, List
+
 
 class BenchmarkRunner:
     def __init__(self, agent, evaluator, judge):
@@ -11,38 +11,51 @@ class BenchmarkRunner:
 
     async def run_single_test(self, test_case: Dict) -> Dict:
         start_time = time.perf_counter()
-        
-        # 1. Gọi Agent
         response = await self.agent.query(test_case["question"])
         latency = time.perf_counter() - start_time
-        
-        # 2. Chạy RAGAS metrics
+
         ragas_scores = await self.evaluator.score(test_case, response)
-        
-        # 3. Chạy Multi-Judge
         judge_result = await self.judge.evaluate_multi_judge(
-            test_case["question"], 
-            response["answer"], 
-            test_case["expected_answer"]
+            test_case["question"],
+            response["answer"],
+            test_case["expected_answer"],
         )
-        
+
+        cluster = self._failure_cluster(test_case, ragas_scores, judge_result)
+        status = "pass" if judge_result["final_score"] >= 3.5 and ragas_scores["retrieval"]["hit_rate"] >= 1.0 else "fail"
+
         return {
+            "id": test_case.get("id"),
             "test_case": test_case["question"],
+            "expected_answer": test_case["expected_answer"],
+            "expected_retrieval_ids": test_case.get("expected_retrieval_ids", []),
             "agent_response": response["answer"],
-            "latency": latency,
+            "retrieved_ids": response.get("retrieved_ids", []),
+            "latency": round(latency, 4),
+            "tokens_used": response.get("metadata", {}).get("tokens_used", 0),
+            "estimated_cost_usd": response.get("metadata", {}).get("estimated_cost_usd", 0.0),
             "ragas": ragas_scores,
             "judge": judge_result,
-            "status": "fail" if judge_result["final_score"] < 3 else "pass"
+            "failure_cluster": cluster,
+            "status": status,
+            "metadata": test_case.get("metadata", {}),
         }
 
-    async def run_all(self, dataset: List[Dict], batch_size: int = 5) -> List[Dict]:
-        """
-        Chạy song song bằng asyncio.gather với giới hạn batch_size để không bị Rate Limit.
-        """
+    def _failure_cluster(self, test_case: Dict, ragas_scores: Dict, judge_result: Dict) -> str:
+        if judge_result["final_score"] >= 3.5 and ragas_scores["retrieval"]["hit_rate"] >= 1.0:
+            return "none"
+        if ragas_scores["retrieval"]["hit_rate"] < 1.0:
+            return "retrieval_miss"
+        if test_case.get("metadata", {}).get("type") in {"prompt-injection", "red-team"}:
+            return "safety_policy"
+        if ragas_scores["relevancy"] < 0.45:
+            return "incomplete_or_hallucinated"
+        return "generation_quality"
+
+    async def run_all(self, dataset: List[Dict], batch_size: int = 10) -> List[Dict]:
         results = []
         for i in range(0, len(dataset), batch_size):
             batch = dataset[i:i + batch_size]
             tasks = [self.run_single_test(case) for case in batch]
-            batch_results = await asyncio.gather(*tasks)
-            results.extend(batch_results)
+            results.extend(await asyncio.gather(*tasks))
         return results

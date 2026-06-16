@@ -1,0 +1,86 @@
+[
+  {
+    "id": "DOC_AUTH_001",
+    "title": "Password reset policy",
+    "topic": "authentication",
+    "answer": "Users can reset a forgotten password from the login page, verify by email OTP, and must choose a password with at least 12 characters.",
+    "context": "Password reset starts on the login page. The user selects Forgot password, confirms the email OTP, then creates a new password. The minimum length is 12 characters."
+  },
+  {
+    "id": "DOC_AUTH_002",
+    "title": "Multi-factor authentication",
+    "topic": "authentication",
+    "answer": "MFA is mandatory for admins and recommended for all users; recovery codes must be stored offline.",
+    "context": "Multi-factor authentication is mandatory for administrator accounts. Standard users should enable MFA. Recovery codes are single-use and should be stored offline."
+  },
+  {
+    "id": "DOC_BILL_001",
+    "title": "Invoice correction",
+    "topic": "billing",
+    "answer": "Invoice corrections must be requested within 30 days and require the invoice number, company name, and corrected tax details.",
+    "context": "Billing support can correct invoices within 30 days of issue. Requests must include invoice number, company name, and corrected tax information."
+  },
+  {
+    "id": "DOC_BILL_002",
+    "title": "Refund SLA",
+    "topic": "billing",
+    "answer": "Approved refunds are processed within 7 business days, while bank posting can take 3 to 10 additional days.",
+    "context": "Refund approval is followed by processing within 7 business days. The customer's bank may need 3 to 10 more days to post the amount."
+  },
+  {
+    "id": "DOC_DATA_001",
+    "title": "Data export",
+    "topic": "data",
+    "answer": "Workspace owners can export audit logs as CSV from Settings > Compliance, with exports limited to 90 days per file.",
+    "context": "Audit logs are exported by workspace owners from Settings then Compliance. CSV exports are limited to a 90-day date range per file."
+  },
+  {
+    "id": "DOC_DATA_002",
+    "title": "Data deletion",
+    "topic": "data",
+    "answer": "Deletion requests enter a 14-day grace period before permanent removal, unless a legal hold is active.",
+    "context": "Account deletion starts a 14-day grace period. After that period data is permanently removed unless the account is under legal hold."
+  },
+  {
+    "id": "DOC_SEC_001",
+    "title": "API key handling",
+    "topic": "security",
+    "answer": "API keys must never be committed to Git; rotate exposed keys immediately and store secrets in the approved vault.",
+    "context": "Do not commit API keys or secrets to Git. Exposed keys must be rotated immediately. Production secrets belong in the approved secret vault."
+  },
+  {
+    "id": "DOC_SEC_002",
+    "title": "Incident severity",
+    "topic": "security",
+    "answer": "A suspected production data leak is severity P1 and must be escalated to security within 15 minutes.",
+    "context": "Production data leaks are P1 incidents. The on-call owner must escalate to the security team within 15 minutes of suspicion."
+  },
+  {
+    "id": "DOC_SUP_001",
+    "title": "Support channels",
+    "topic": "support",
+    "answer": "Free plans use community support, Pro plans receive email support, and Enterprise plans receive dedicated Slack support.",
+    "context": "Support channels vary by plan. Free uses community support, Pro uses email support, and Enterprise receives a dedicated Slack channel."
+  },
+  {
+    "id": "DOC_SUP_002",
+    "title": "Response time targets",
+    "topic": "support",
+    "answer": "Enterprise P1 tickets target a 1-hour first response, while Pro P2 tickets target 8 business hours.",
+    "context": "Enterprise P1 tickets have a 1-hour first response target. Pro P2 tickets have an 8-business-hour target."
+  },
+  {
+    "id": "DOC_PERF_001",
+    "title": "Rate limits",
+    "topic": "performance",
+    "answer": "The public API allows 600 requests per minute per workspace; clients should use exponential backoff after HTTP 429.",
+    "context": "The public API rate limit is 600 requests per minute per workspace. After HTTP 429, clients should retry using exponential backoff."
+  },
+  {
+    "id": "DOC_PERF_002",
+    "title": "File upload limits",
+    "topic": "performance",
+    "answer": "Single file uploads are limited to 100 MB on Pro and 1 GB on Enterprise.",
+    "context": "Upload limits depend on plan. Pro supports single files up to 100 MB. Enterprise supports single files up to 1 GB."
+  }
+]

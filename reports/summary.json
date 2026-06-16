@@ -1,0 +1,56 @@
+{
+  "metadata": {
+    "version": "Agent_V2_Optimized",
+    "total": 60,
+    "passed": 57,
+    "failed": 3,
+    "timestamp": "2026-06-16 14:20:03",
+    "elapsed_seconds": 0.1081,
+    "judge_models": [
+      "lexical-judge-v1",
+      "policy-judge-v1"
+    ]
+  },
+  "metrics": {
+    "avg_score": 4.915,
+    "hit_rate": 0.95,
+    "mrr": 0.95,
+    "faithfulness": 0.982492,
+    "relevancy": 0.973067,
+    "agreement_rate": 0.979333,
+    "avg_latency": 0.016172,
+    "total_cost_usd": 0.00318,
+    "avg_tokens": 26.5,
+    "pass_rate": 0.95
+  },
+  "failure_clusters": {
+    "retrieval_miss": 3
+  },
+  "regression": {
+    "baseline_version": "Agent_V1_Base",
+    "candidate_version": "Agent_V2_Optimized",
+    "decision": "Release",
+    "thresholds": {
+      "min_avg_score": 3.75,
+      "min_hit_rate": 0.85,
+      "min_agreement_rate": 0.7,
+      "max_avg_latency": 0.2,
+      "max_cost_usd": 0.02
+    },
+    "checks": {
+      "quality_threshold": true,
+      "retrieval_threshold": true,
+      "judge_reliability": true,
+      "performance_threshold": true,
+      "cost_threshold": true,
+      "no_quality_regression": true
+    },
+    "deltas": {
+      "avg_score": 3.281833,
+      "hit_rate": 0.0,
+      "agreement_rate": -0.003042,
+      "total_cost_usd": 0.000916,
+      "avg_latency": 0.001394
+    }
+  }
+}
